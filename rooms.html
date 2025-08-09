@@ -9,61 +9,84 @@
 </head>
 <body>
   <div class="container">
-    
-<header class="header">
-  <a class="brand" href="index.html">
-    <img src="assets/logo.png" alt="Калды — логотип">
-    <div class="title"><span class="ru">Калды</span><span class="subtitle">База отдыха</span></div>
-  </a>
-  <nav class="nav">
-    <a href="rooms.html">Домики</a>
-    <a href="services.html">Услуги</a>
-    <a href="gallery.html">Галерея</a>
-    <a href="about.html">О нас</a>
-    <a href="contacts.html">Контакты</a>
-    <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
-  </nav>
-</header>
+    <header class="header">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.png" alt="Калды — логотип">
+        <div class="title"><span class="ru">Калды</span><span class="subtitle">База отдыха</span></div>
+      </a>
+      <nav class="nav">
+        <a href="rooms.html">Домики</a>
+        <a href="services.html">Услуги</a>
+        <a href="gallery.html">Галерея</a>
+        <a href="about.html">О нас</a>
+        <a href="contacts.html">Контакты</a>
+        <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+      </nav>
+    </header>
 
-    
-<section class="section">
-  <h2>Номера и размещение</h2>
-  <div class="grid-3">
-    <article class="card room-card">
-      <div class="room-photo">Фото</div>
-      <h3>Стандарт у озера</h3>
-      <p>2–3 гостя · Терраса · Кондиционер</p>
-      <p><strong>от 3 500 ₽ / ночь</strong></p>
-      <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
-    </article>
-    <article class="card room-card">
-      <div class="room-photo">Фото</div>
-      <h3>Семейный коттедж</h3>
-      <p>до 6 гостей · Кухня · Мангал</p>
-      <p><strong>от 7 900 ₽ / ночь</strong></p>
-      <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
-    </article>
-    <article class="card room-card">
-      <div class="room-photo">Фото</div>
-      <h3>Домик у леса</h3>
-      <p>2–4 гостя · Тихая зона · Парковка</p>
-      <p><strong>от 4 500 ₽ / ночь</strong></p>
-      <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
-    </article>
-  </div>
-</section>
+    <section class="section">
+      <h2>Номера и размещение</h2>
+      <div class="grid-3">
+        <article class="card room-card">
+          <a class="slider-link" href="room-standard.html" aria-label="Стандарт у озера">
+            <div class="slider" data-speed="2000">
+              <div class="slides">
+                <div class="slide"><img src="assets/rooms/standard-1.jpg" alt="Стандарт у озера — фото 1"></div>
+                <div class="slide"><img src="assets/rooms/standard-2.jpg" alt="Стандарт у озера — фото 2"></div>
+                <div class="slide"><img src="assets/rooms/standard-3.jpg" alt="Стандарт у озера — фото 3"></div>
+              </div>
+            </div>
+          </a>
+          <h3>Стандарт у озера</h3>
+          <p>2–3 гостя · Терраса · Кондиционер</p>
+          <p><strong>от 3 500 ₽ / ночь</strong></p>
+          <a class="btn" href="room-standard.html">Подробнее</a>
+        </article>
 
+        <article class="card room-card">
+          <a class="slider-link" href="room-cottage.html" aria-label="Семейный коттедж">
+            <div class="slider" data-speed="2000">
+              <div class="slides">
+                <div class="slide"><img src="assets/rooms/cottage-1.jpg" alt="Семейный коттедж — фото 1"></div>
+                <div class="slide"><img src="assets/rooms/cottage-2.jpg" alt="Семейный коттедж — фото 2"></div>
+                <div class="slide"><img src="assets/rooms/cottage-3.jpg" alt="Семейный коттедж — фото 3"></div>
+              </div>
+            </div>
+          </a>
+          <h3>Семейный коттедж</h3>
+          <p>до 6 гостей · Кухня · Мангал</p>
+          <p><strong>от 7 900 ₽ / ночь</strong></p>
+          <a class="btn" href="room-cottage.html">Подробнее</a>
+        </article>
+
+        <article class="card room-card">
+          <a class="slider-link" href="room-forest.html" aria-label="Домик у леса">
+            <div class="slider" data-speed="2000">
+              <div class="slides">
+                <div class="slide"><img src="assets/rooms/forest-1.jpg" alt="Домик у леса — фото 1"></div>
+                <div class="slide"><img src="assets/rooms/forest-2.jpg" alt="Домик у леса — фото 2"></div>
+                <div class="slide"><img src="assets/rooms/forest-3.jpg" alt="Домик у леса — фото 3"></div>
+              </div>
+            </div>
+          </a>
+          <h3>Домик у леса</h3>
+          <p>2–4 гостя · Тихая зона · Парковка</p>
+          <p><strong>от 4 500 ₽ / ночь</strong></p>
+          <a class="btn" href="room-forest.html">Подробнее</a>
+        </article>
+      </div>
+    </section>
   </div>
-  
-<footer class="footer">
-  <div class="container">
-    <div class="row">
-      <div>© 2025 «Калды». База отдыха у озера.</div>
-      <div class="badge-pill">Тёплый отдых у воды</div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div>© 2025 «Калды». База отдыха у озера.</div>
+        <div class="badge-pill">Тёплый отдых у воды</div>
+      </div>
     </div>
-  </div>
-</footer>
-<script src="scripts/main.js"></script>
+  </footer>
 
+  <script src="scripts/main.js"></script>
 </body>
 </html>
