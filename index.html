@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Главная — Калды</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div class="container">
+    
+<header class="header">
+  <a class="brand" href="index.html">
+    <img src="assets/logo.png" alt="Калды — логотип">
+    <div class="title"><span class="ru">Калды</span><span class="subtitle">База отдыха</span></div>
+  </a>
+  <nav class="nav">
+    <a href="rooms.html">Домики</a>
+    <a href="services.html">Услуги</a>
+    <a href="gallery.html">Галерея</a>
+    <a href="about.html">О нас</a>
+    <a href="contacts.html">Контакты</a>
+    <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+  </nav>
+</header>
+
+    
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="badge"><span class="dot"></span> Лето у озера ждёт вас</span>
+      <h1>Тёплый отдых у воды<br>с уютными домиками</h1>
+      <p>Семейные выходные, корпоративы или романтические вечера — у нас есть домики на любой вкус, чистый пляж и активный досуг.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#" onclick="bookingStub(event)">Проверить даты</a>
+        <a class="brand" href="gallery.html" style="gap:8px;"><img src="assets/logo.png" alt="" style="width:36px;height:36px;border-radius:8px;"><span style="font-weight:700">3D‑тур (скоро)</span></a>
+      </div>
+    </div>
+    <aside class="hero-card" aria-label="Быстрое бронирование">
+      <div class="row">
+        <div><label>Заезд</label><div class="field">12.08.2025</div></div>
+        <div><label>Выезд</label><div class="field">15.08.2025</div></div>
+      </div>
+      <div class="row">
+        <div><label>Гости</label><div class="field">2 взрослых · 1 ребёнок</div></div>
+        <div><label>Тип домика</label><div class="field">Стандарт у озера</div></div>
+      </div>
+      <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+    </aside>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path d="M0,40 C260,100 420,10 720,40 C1020,70 1180,10 1440,40 L1440,90 L0,90 Z" fill="#4CB7C5" opacity=".35"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="section grid-3">
+  <article class="card"><span class="badge-pill">У воды</span><h3>Песчаный пляж и чистое озеро</h3><p>Шезлонги, прокат сапов и безопасная зона для детей. Расслабьтесь под тёплым солнцем.</p></article>
+  <article class="card"><span class="badge-pill">Домики</span><h3>Уют и комфорт</h3><p>От компактных домиков до просторных коттеджей — кондиционер, терраса, мангал.</p></article>
+  <article class="card"><span class="badge-pill">Активности</span><h3>Досуг на любой вкус</h3><p>Баня, спортплощадки, аренда велосипедов и вечерние костры у воды.</p></article>
+</section>
+
+<section class="section">
+  <a class="btn" href="rooms.html">Смотреть домики и цены</a>
+</section>
+
+  </div>
+  
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div>© 2025 «Калды». База отдыха у озера.</div>
+      <div class="badge-pill">Тёплый отдых у воды</div>
+    </div>
+  </div>
+</footer>
+<script src="scripts/main.js"></script>
+
+</body>
+</html>

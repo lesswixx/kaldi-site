@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Контакты — Калды</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div class="container">
+    
+<header class="header">
+  <a class="brand" href="index.html">
+    <img src="assets/logo.png" alt="Калды — логотип">
+    <div class="title"><span class="ru">Калды</span><span class="subtitle">База отдыха</span></div>
+  </a>
+  <nav class="nav">
+    <a href="rooms.html">Домики</a>
+    <a href="services.html">Услуги</a>
+    <a href="gallery.html">Галерея</a>
+    <a href="about.html">О нас</a>
+    <a href="contacts.html">Контакты</a>
+    <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+  </nav>
+</header>
+
+    
+<section class="section grid-3">
+  <div class="card">
+    <h3>Контакты</h3>
+    <p><strong>Телефон:</strong> +7 (999) 000‑00‑00<br>
+       <strong>Email:</strong> hello@kaldi.example<br>
+       <strong>Соцсети:</strong> VK, Telegram</p>
+    <p>Адрес: Республика, район озера Калды (пример).</p>
+  </div>
+  <div class="card">
+    <h3>Карта проезда</h3>
+    <p></p>
+    <div style="border-radius:12px;overflow:hidden">
+      <iframe title="Карта" src="https://yandex.ru/map-widget/v1/?um=constructor%3A" width="100%" height="240" frameborder="0"></iframe>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Форма обратной связи</h3>
+    <form onsubmit="event.preventDefault(); alert('Спасибо! Мы свяжемся с вами.');">
+      <div class="row">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+      </div>
+      <textarea name="message" placeholder="Сообщение"></textarea>
+      <div class="actions"><button class="btn" type="submit">Отправить</button></div>
+    </form>
+  </div>
+</section>
+
+  </div>
+  
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div>© 2025 «Калды». База отдыха у озера.</div>
+      <div class="badge-pill">Тёплый отдых у воды</div>
+    </div>
+  </div>
+</footer>
+<script src="scripts/main.js"></script>
+
+</body>
+</html>
