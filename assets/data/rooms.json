@@ -1,0 +1,26 @@
+{
+  "rooms": [
+    {
+      "title": "Стандарт у озера",
+      "price": 3500,
+      "url": "room-standard.html",
+      "meta": "2–3 гостя · Терраса · Кондиционер",
+      "photos": [
+        "assets/rooms/standard-1.jpg",
+        "assets/rooms/standard-2.jpg",
+        "assets/rooms/standard-3.jpg"
+      ]
+    },
+    {
+      "title": "Стандарт у озера",
+      "price": 3500,
+      "url": "room-standard.html",
+      "meta": "2–3 гостя · Терраса · Кондиционер",
+      "photos": [
+        "assets/rooms/standard-1.jpg",
+        "assets/rooms/standard-2.jpg",
+        "assets/rooms/standard-3.jpg"
+      ]
+    }
+  ]
+}

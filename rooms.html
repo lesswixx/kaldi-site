@@ -6,6 +6,7 @@
   <title>Номера и размещение — Калды</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png">
 </head>
 <body>
   <div class="container">
@@ -18,22 +19,30 @@
         <a href="rooms.html">Домики</a>
         <a href="services.html">Услуги</a>
         <a href="gallery.html">Галерея</a>
-        <a href="about.html">О нас</a>
+        <a href="index.html#about">О нас</a>
         <a href="contacts.html">Контакты</a>
         <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
       </nav>
     </header>
 
     <section class="section">
-      <h2>Номера и размещение</h2>
-      <div class="grid-3">
-        <article class="card room-card">
+      <div class="rooms-head">
+        <h2>Номера и размещение</h2>
+        <div class="sort">
+          <label>Сортировать по цене:</label>
+          <button class="sort-btn" data-sort="asc">по возрастанию</button>
+          <button class="sort-btn" data-sort="desc">по убыванию</button>
+        </div>
+      </div>
+
+      <div id="rooms-list" class="grid-3">
+        <article class="card room-card" data-price="3500">
           <a class="slider-link" href="room-standard.html" aria-label="Стандарт у озера">
             <div class="slider" data-speed="2000">
               <div class="slides">
-                <div class="slide"><img src="assets/rooms/standard-1.jpg" alt="Стандарт у озера — фото 1"></div>
-                <div class="slide"><img src="assets/rooms/standard-2.jpg" alt="Стандарт у озера — фото 2"></div>
-                <div class="slide"><img src="assets/rooms/standard-3.jpg" alt="Стандарт у озера — фото 3"></div>
+                <div class="slide"><img src="assets/rooms/standard-1.jpg" alt=""></div>
+                <div class="slide"><img src="assets/rooms/standard-2.jpg" alt=""></div>
+                <div class="slide"><img src="assets/rooms/standard-3.jpg" alt=""></div>
               </div>
             </div>
           </a>
@@ -43,13 +52,13 @@
           <a class="btn" href="room-standard.html">Подробнее</a>
         </article>
 
-        <article class="card room-card">
+        <article class="card room-card" data-price="7900">
           <a class="slider-link" href="room-cottage.html" aria-label="Семейный коттедж">
             <div class="slider" data-speed="2000">
               <div class="slides">
-                <div class="slide"><img src="assets/rooms/cottage-1.jpg" alt="Семейный коттедж — фото 1"></div>
-                <div class="slide"><img src="assets/rooms/cottage-2.jpg" alt="Семейный коттедж — фото 2"></div>
-                <div class="slide"><img src="assets/rooms/cottage-3.jpg" alt="Семейный коттедж — фото 3"></div>
+                <div class="slide"><img src="assets/rooms/cottage-1.jpg" alt=""></div>
+                <div class="slide"><img src="assets/rooms/cottage-2.jpg" alt=""></div>
+                <div class="slide"><img src="assets/rooms/cottage-3.jpg" alt=""></div>
               </div>
             </div>
           </a>
@@ -59,13 +68,13 @@
           <a class="btn" href="room-cottage.html">Подробнее</a>
         </article>
 
-        <article class="card room-card">
+        <article class="card room-card" data-price="4500">
           <a class="slider-link" href="room-forest.html" aria-label="Домик у леса">
             <div class="slider" data-speed="2000">
               <div class="slides">
-                <div class="slide"><img src="assets/rooms/forest-1.jpg" alt="Домик у леса — фото 1"></div>
-                <div class="slide"><img src="assets/rooms/forest-2.jpg" alt="Домик у леса — фото 2"></div>
-                <div class="slide"><img src="assets/rooms/forest-3.jpg" alt="Домик у леса — фото 3"></div>
+                <div class="slide"><img src="assets/rooms/forest-1.jpg" alt=""></div>
+                <div class="slide"><img src="assets/rooms/forest-2.jpg" alt=""></div>
+                <div class="slide"><img src="assets/rooms/forest-3.jpg" alt=""></div>
               </div>
             </div>
           </a>

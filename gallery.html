@@ -6,10 +6,11 @@
   <title>Галерея — Калды</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png">
 </head>
 <body>
   <div class="container">
-    
+
 <header class="header">
   <a class="brand" href="index.html">
     <img src="assets/logo.png" alt="Калды — логотип">
@@ -25,27 +26,26 @@
   </nav>
 </header>
 
-    
 <section class="section">
   <h2>Фотогалерея</h2>
-  <div class="gallery">
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
-    <div class="ph" data-lightbox-src="assets/logo.png">Фото</div>
+  <div class="gallery" id="galleryAuto" data-prefix="assets/gallery/photo-" data-start="1" data-max="500">
+    <!-- статические примеры (дальше подгрузит initAutoGallery из main.js) -->
+    <img src="assets/territory/terr-1.jpg" alt="Фото 1">
+    <img src="assets/rooms/standard-1.jpg" alt="Фото 2">
+    <img src="assets/rooms/cottage-1.jpg" alt="Фото 3">
+    <img src="assets/rooms/forest-1.jpg" alt="Фото 4">
   </div>
 </section>
 
-<div id="lightbox" class="lightbox" onclick="lightboxClose()">
-  <img alt="Просмотр фото"/>
+<!-- ЕДИНЫЙ лайтбокс (как в деталке) -->
+<div id="lightbox" class="lightbox" style="display:none;">
+  <button class="lightbox-close" aria-label="Закрыть">×</button>
+  <button class="lightbox-prev" aria-label="Предыдущее фото">‹</button>
+  <img src="" alt="" class="lightbox-img">
+  <button class="lightbox-next" aria-label="Следующее фото">›</button>
 </div>
 
   </div>
-  
 <footer class="footer">
   <div class="container">
     <div class="row">
@@ -54,7 +54,49 @@
     </div>
   </div>
 </footer>
+
 <script src="scripts/main.js"></script>
 
+<!-- Инициализация лайтбокса для галереи -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initLightboxFor('.gallery img');
+});
+
+function initLightboxFor(selector){
+  const images = document.querySelectorAll(selector);
+  if(!images.length) return;
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('.lightbox-img');
+  const btnClose = lightbox.querySelector('.lightbox-close');
+  const btnPrev = lightbox.querySelector('.lightbox-prev');
+  const btnNext = lightbox.querySelector('.lightbox-next');
+
+  let index = 0;
+
+  function show(i){
+    index = (i + images.length) % images.length;
+    lightboxImg.src = images[index].src || images[index].getAttribute('data-full') || images[index].getAttribute('data-src');
+    lightbox.style.display = 'flex';
+  }
+
+  images.forEach((img, i) => img.addEventListener('click', ()=>show(i)));
+
+  btnClose.addEventListener('click', ()=> lightbox.style.display = 'none');
+  btnPrev.addEventListener('click', ()=> show(index - 1));
+  btnNext.addEventListener('click', ()=> show(index + 1));
+
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.style.display = 'none'; });
+
+  document.addEventListener('keydown', e => {
+    if (lightbox.style.display === 'flex') {
+      if (e.key === 'Escape') lightbox.style.display = 'none';
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    }
+  });
+}
+</script>
 </body>
 </html>

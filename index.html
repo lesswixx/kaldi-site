@@ -6,10 +6,11 @@
   <title>Главная — Калды</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png">
 </head>
 <body>
   <div class="container">
-    
+
 <header class="header">
   <a class="brand" href="index.html">
     <img src="assets/logo.png" alt="Калды — логотип">
@@ -19,13 +20,12 @@
     <a href="rooms.html">Домики</a>
     <a href="services.html">Услуги</a>
     <a href="gallery.html">Галерея</a>
-    <a href="about.html">О нас</a>
+    <a href="#about">О нас</a>
     <a href="contacts.html">Контакты</a>
-    <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+    <a class="btn button" href="#" onclick="bookingStub(event)">Забронировать</a>
   </nav>
 </header>
 
-    
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-copy">
@@ -34,20 +34,41 @@
       <p>Семейные выходные, корпоративы или романтические вечера — у нас есть домики на любой вкус, чистый пляж и активный досуг.</p>
       <div class="hero-actions">
         <a class="btn" href="#" onclick="bookingStub(event)">Проверить даты</a>
-        <a class="brand" href="gallery.html" style="gap:8px;"><img src="assets/logo.png" alt="" style="width:36px;height:36px;border-radius:8px;"><span style="font-weight:700">3D‑тур (скоро)</span></a>
+        <a class="brand" href="gallery.html" style="gap:8px;">
+          <img src="assets/logo.png" alt="" style="width:36px;height:36px;border-radius:8px;">
+          <span style="font-weight:700">3D-тур (скоро)</span>
+        </a>
       </div>
     </div>
-    <aside class="hero-card" aria-label="Быстрое бронирование">
-      <div class="row">
-        <div><label>Заезд</label><div class="field">12.08.2025</div></div>
-        <div><label>Выезд</label><div class="field">15.08.2025</div></div>
+
+<aside class="hero-card" aria-label="Быстрое бронирование" style="position:relative;">
+
+  <!-- Виджет погоды — ДОЛЖЕН быть внутри hero-card -->
+  <div id="weather"
+       class="weather"
+       data-fallback-lat="55.66"
+       data-fallback-lon="61.30">
+    <div class="w-row">
+      <strong id="wTemp">—°</strong>
+      <div class="w-meta">
+        <div id="wCond">Погода</div>
+        <small id="wCity">Загрузка…</small>
       </div>
-      <div class="row">
-        <div><label>Гости</label><div class="field">2 взрослых · 1 ребёнок</div></div>
-        <div><label>Тип домика</label><div class="field">Стандарт у озера</div></div>
-      </div>
-      <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
-    </aside>
+    </div>
+  </div>
+
+  <div class="row">
+    <div><label>Заезд</label><div class="field">12.08.2025</div></div>
+    <div><label>Выезд</label><div class="field">15.08.2025</div></div>
+  </div>
+  <div class="row">
+    <div><label>Гости</label><div class="field">2 взрослых · 1 ребёнок</div></div>
+    <div><label>Тип домика</label><div class="field">Стандарт у озера</div></div>
+  </div>
+  <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+  <a class="btn" href="contacts.html" style="background:#4CB7C5">Связаться с нами</a>
+</aside>
+
   </div>
   <div class="wave" aria-hidden="true">
     <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
@@ -56,10 +77,34 @@
   </div>
 </section>
 
+<!-- О нас -->
+<section id="about" class="section card">
+  <h2>О нас</h2>
+  <p>«Калды» — семейная база отдыха у озера. Мы любим тёплые вечера, запах хвои и чистую воду. Основаны в 2010 году, развиваем территорию и сервис каждый сезон.</p>
+  <div class="about-photos">
+    <img src="assets/territory/terr-1.jpg" alt="Территория — вид 1">
+    <img src="assets/territory/terr-2.jpg" alt="Территория — вид 2">
+    <img src="assets/territory/terr-3.jpg" alt="Территория — вид 3">
+  </div>
+</section>
+
+<!-- Преимущества -->
 <section class="section grid-3">
-  <article class="card"><span class="badge-pill">У воды</span><h3>Песчаный пляж и чистое озеро</h3><p>Шезлонги, прокат сапов и безопасная зона для детей. Расслабьтесь под тёплым солнцем.</p></article>
-  <article class="card"><span class="badge-pill">Домики</span><h3>Уют и комфорт</h3><p>От компактных домиков до просторных коттеджей — кондиционер, терраса, мангал.</p></article>
-  <article class="card"><span class="badge-pill">Активности</span><h3>Досуг на любой вкус</h3><p>Баня, спортплощадки, аренда велосипедов и вечерние костры у воды.</p></article>
+  <article class="card feature-card" data-modal-open="feat-water">
+    <span class="badge-pill">У воды</span>
+    <h3>Песчаный пляж и чистое озеро</h3>
+    <p>Шезлонги, прокат сапов и безопасная зона для детей. Расслабьтесь под тёплым солнцем.</p>
+  </article>
+  <article class="card feature-card" data-modal-open="feat-houses">
+    <span class="badge-pill">Домики</span>
+    <h3>Уют и комфорт</h3>
+    <p>От компактных домиков до просторных коттеджей — кондиционер, терраса, мангал.</p>
+  </article>
+  <article class="card feature-card" data-modal-open="feat-activities">
+    <span class="badge-pill">Активности</span>
+    <h3>Досуг на любой вкус</h3>
+    <p>Баня, спортплощадки, аренда велосипедов и вечерние костры у воды.</p>
+  </article>
 </section>
 
 <section class="section">
@@ -67,7 +112,66 @@
 </section>
 
   </div>
-  
+
+<!-- Модалки преимуществ -->
+<div class="modal" id="feat-water" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Пляж и озеро</h3>
+    <p>Чистая вода, пологий вход — отлично для детей.</p>
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/territory/terr-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/territory/terr-2.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/territory/terr-3.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev">‹</button>
+      <button class="modal__next">›</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="feat-houses" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Домики</h3>
+    <p>От стандартных до семейных коттеджей — все с террасами и мангалом.</p>
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/rooms/standard-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/rooms/cottage-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/rooms/forest-1.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev">‹</button>
+      <button class="modal__next">›</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="feat-activities" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Активности</h3>
+    <p>Баня, велосипеды, площадки и вечерние костры.</p>
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/activities/act-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/activities/act-2.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev">‹</button>
+      <button class="modal__next">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- Лайтбокс «как в деталке» -->
+<div id="lightbox" class="lightbox" style="display:none;">
+  <button class="lightbox-close" aria-label="Закрыть">×</button>
+  <button class="lightbox-prev" aria-label="Предыдущее фото">‹</button>
+  <img src="" alt="" class="lightbox-img">
+  <button class="lightbox-next" aria-label="Следующее фото">›</button>
+</div>
+
 <footer class="footer">
   <div class="container">
     <div class="row">
@@ -76,7 +180,147 @@
     </div>
   </div>
 </footer>
+
 <script src="scripts/main.js"></script>
+
+<!-- Локальная логика: лайтбокс для «О нас» + открытие модалок карточек -->
+<script src="scripts/main.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ОТКРЫТИЕ МОДАЛКИ ПО КАРТОЧКЕ
+  document.querySelectorAll('.feature-card[data-modal-open]').forEach(card => {
+    card.addEventListener('click', () => openModal(card.getAttribute('data-modal-open'), card));
+  });
+
+  function openModal(id, opener){
+    const modal = document.getElementById(id);
+    if(!modal) return;
+
+    // показываем и даём доступ для AT
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden','false');
+
+    // инициализируем слайдер внутри
+    initModalSlider(modal);
+
+    // фокус внутрь
+    (modal.querySelector('.modal__next') || modal.querySelector('.modal__close') || modal).focus();
+
+    // закрытие по фону/крестику/ESC
+    const close = ()=>{
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+      opener && opener.focus();
+      // снимаем обработчики
+      modal.removeEventListener('click', onBackdrop);
+      document.removeEventListener('keydown', onEsc);
+      document.removeEventListener('keydown', onArrows);
+    };
+    const onBackdrop = e => { if(e.target === modal || e.target.hasAttribute('data-modal-close')) close(); };
+    const onEsc = e => { if(e.key === 'Escape') close(); };
+    const onArrows = e => {                          // листание клавишами ← →
+      if(e.key === 'ArrowLeft')  modalSliderStep(modal, -1);
+      if(e.key === 'ArrowRight') modalSliderStep(modal, +1);
+    };
+    modal.addEventListener('click', onBackdrop);
+    document.addEventListener('keydown', onEsc);
+    document.addEventListener('keydown', onArrows);
+  }
+  // ===== ЛАЙТБОКС ДЛЯ "О НАС" =====
+  function initLightboxFor(selector){
+    const images = Array.from(document.querySelectorAll(selector));
+    if(!images.length) return;
+
+    const lb      = document.getElementById('lightbox');
+    const lbImg   = lb.querySelector('.lightbox-img');
+    const btnX    = lb.querySelector('.lightbox-close');
+    const btnPrev = lb.querySelector('.lightbox-prev');
+    const btnNext = lb.querySelector('.lightbox-next');
+
+    let i = 0;
+    function show(n){
+      i = (n + images.length) % images.length;
+      lbImg.src = images[i].getAttribute('data-full') || images[i].src;
+      lb.style.display = 'flex';
+    }
+
+    images.forEach((img, idx)=> img.addEventListener('click', ()=> show(idx)));
+    btnX  .addEventListener('click', ()=> lb.style.display='none');
+    btnPrev.addEventListener('click', ()=> show(i-1));
+    btnNext.addEventListener('click', ()=> show(i+1));
+    lb.addEventListener('click', e=>{ if(e.target===lb) lb.style.display='none'; });
+
+    document.addEventListener('keydown', e=>{
+      if(lb.style.display==='flex'){
+        if(e.key==='Escape') lb.style.display='none';
+        if(e.key==='ArrowLeft')  show(i-1);
+        if(e.key==='ArrowRight') show(i+1);
+      }
+    });
+  }
+
+  // Запуск лайтбокса для картинок в "О нас"
+  initLightboxFor('.about-photos img');
+
+  // ===== СЛАЙДЕР ВНУТРИ МОДАЛКИ =====
+  function initModalSlider(modal){
+    if(modal.dataset.sliderInited) return;
+    modal.dataset.sliderInited = '1';
+
+    const slider = modal.querySelector('[data-slider]');
+    if(!slider) return;
+
+    const track  = slider.querySelector('.modal__slides');
+    const slides = slider.querySelectorAll('.modal__slide');
+    const prev   = slider.querySelector('.modal__prev');
+    const next   = slider.querySelector('.modal__next');
+
+    let i = 0;
+
+    function go(n){
+      i = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${i*100}%)`;
+    }
+
+    // клики по стрелкам
+    prev && prev.addEventListener('click', e => { e.stopPropagation(); go(i-1); });
+    next && next.addEventListener('click', e => { e.stopPropagation(); go(i+1); });
+
+    // свайп
+    let down=false, x0=0, pid=null;
+    slider.addEventListener('pointerdown', e=>{ down=true; x0=e.clientX; pid=e.pointerId; slider.setPointerCapture?.(pid); });
+    const up = e=>{
+      if(!down) return;
+      const dx=(e.clientX??0)-x0;
+      if(Math.abs(dx)>40) go(i + (dx<0?1:-1));
+      down=false; pid && slider.releasePointerCapture?.(pid);
+    };
+    slider.addEventListener('pointerup', up);
+    slider.addEventListener('pointercancel', up);
+
+    // клик по левой/правой части слайдера
+    slider.addEventListener('click', e=>{
+      if(e.target.closest('.modal__prev, .modal__next')) return;
+      const r=slider.getBoundingClientRect();
+      (e.clientX - r.left < r.width/2) ? go(i-1) : go(i+1);
+    });
+
+    // сохраним методы на модалке — для внешнего управления стрелками с клавы
+    modal.__goSlide = n => go(i+n);
+
+    go(0);
+  }
+
+  // вспомогательная: шаг снаружи (для клавиш ← →)
+  function modalSliderStep(modal, step){
+    if(typeof modal.__goSlide === 'function') modal.__goSlide(step);
+  }
+
+});
+</script>
+
 
 </body>
 </html>

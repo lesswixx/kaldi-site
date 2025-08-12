@@ -1,4 +1,4 @@
-/* ===== Калды — База отдыха. Тёплая тема (песок/солнце/вода) ===== */
+/* ===== Калды — База отдыха. Тёплая тема ===== */
 :root{
   --orange:#E4872A;
   --orange-deep:#C86F2A;
@@ -19,11 +19,11 @@ body{
   line-height:1.6;
 }
 a{color:inherit}
-.container{width:min(1120px,92vw);margin:0 auto;padding:24px}
+.container{width:min(1120px,92vw);margin:0 авто;margin:0 auto;padding:24px}
 
 /* Header */
-.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:5px}
+.brand{display:flex;align-items:center;gap:25px;text-decoration:none;padding-top: 10px;padding-left: 3px ;}
 .brand img{width:44px;height:44px;border-radius:12px;background:var(--white);box-shadow:var(--shadow-1)}
 .brand .title{line-height:1.05;display:grid}
 .brand .title .ru{font-weight:800;font-size:clamp(18px,3.2vw,24px);letter-spacing:.02em}
@@ -32,6 +32,7 @@ a{color:inherit}
 .nav a{text-decoration:none;font-weight:600;padding:8px 10px;border-radius:10px}
 .nav a:hover{background:rgba(0,0,0,.04)}
 .nav .btn{padding:10px 14px}
+.nav a.active{background:var(--orange);color:var(--white);box-shadow:0 4px 14px rgba(228,135,42,.25)}
 
 /* Buttons */
 .btn{
@@ -39,14 +40,18 @@ a{color:inherit}
   background:var(--orange); color:var(--white);
   padding:12px 18px; border-radius:12px; box-shadow:0 6px 20px rgba(228,135,42,.35);
 }
-.btn:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.btn:hover{filter:brightness(1.04);transform:translateY(-1px);}
 .btn:active{transform:translateY(0)}
+/* Кнопка "Забронировать" — текст чёрный при наведении */
+.nav .btn:hover {
+  color: #000;
+}
 
 /* Hero */
 .hero{margin-top:22px;border-radius:var(--radius);overflow:hidden;background:conic-gradient(from 180deg at 60% 40%, rgba(76,183,197,.08), rgba(228,135,42,.06), rgba(76,183,197,.08));box-shadow:var(--shadow-1)}
 .hero-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;padding:clamp(22px,4vw,48px)}
 @media (max-width:860px){.hero-inner{grid-template-columns:1fr}}
-.hero-copy h1{margin:0 0 10px 0;font-size:clamp(30px,5.2vw,54px);line-height:1.02;letter-spacing:.01em}
+.hero-copy h1{margin:0 0 10px 0;font-size:clamp(30px,5.2vw,54px);line-height:1.02;letter-spacing:.01ем}
 .badge{display:inline-flex;align-items:center;gap:10px;background:var(--white);border-radius:999px;padding:8px 14px;box-shadow:var(--shadow-1);margin-bottom:12px}
 .badge .dot{width:10px;height:10px;border-radius:50%;background:var(--orange)}
 .hero-copy p{margin:0 0 16px 0;font-size:clamp(16px,2vw,18px);opacity:.9}
@@ -58,14 +63,27 @@ a{color:inherit}
 .wave svg{position:absolute;bottom:-1px;left:0;width:100%}
 
 /* Sections */
-.section{margin-top:28px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.section{margin-top:32px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media (max-width:900px){.grid-3{grid-template-columns:1fr}}
 .card{background:var(--white);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-1)}
+.card p{margin:6px 0 0}
 
-/* Rooms */
+/* About photos */
+.about-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.about-photos img{width:100%;height:160px;object-fit:cover;border-radius:10px;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+.about-photos img:hover{transform:scale(1.02);box-shadow:0 10px 24px rgba(0,0,0,.12)}
+
+/* Feature cards */
+.feature-card{cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+.feature-card:hover{transform:scale(1.02);box-shadow:0 14px 32px rgba(0,0,0,.12)}
+
+/* Rooms (list) */
 .room-card{display:grid;gap:12px}
-.room-photo{background:linear-gradient(135deg, #fff, #f6f1e6);height:180px;border-radius:12px;display:grid;place-items:center;color:#999;font-weight:700}
+.rooms-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sort{display:flex;gap:8px;align-items:center}
+.sort-btn{border:0;background:#fff;padding:8px 12px;border-radius:10px;cursor:pointer;box-shadow:var(--shadow-1);font-weight:700}
+.sort-btn:hover{background:rgba(0,0,0,.04)}
 
 /* Gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
@@ -86,22 +104,13 @@ a{color:inherit}
 form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:860px){form .row{grid-template-columns:1fr}}
 input,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e7e0d8;background:#fff;font-family:inherit}
-textarea{min-height:120px;resize:vertical}
-form .actions{margin-top:10px}
+textarea{margin-top: 10px; min-height:120px;resize:vertical}
+form .actions{margin:10px}
 .alert{padding:12px 14px;background:#fffbe6;border:1px solid #ffecb3;border-radius:12px}
 
-.nav a:hover {
-  background: rgba(0,0,0,.04);
-}
-
-.nav a.active {
-  background: var(--orange);
-  color: var(--white);
-  box-shadow: 0 4px 14px rgba(228,135,42,.25);
-}
-/* === Slider — без стрелок и точек, автоплей на hover === */
+/* Слайдер карточек (rooms) */
 .slider{
-  --ratio: 16 / 9;            /* при желании 4/3 или 3/2 */
+  --ratio: 16 / 9;
   position: relative;
   overflow: hidden;
   border-radius: 12px;
@@ -110,27 +119,148 @@ form .actions{margin-top:10px}
   transition: transform .24s ease, box-shadow .24s ease;
   cursor: pointer;
 }
-.slider:hover{
+.slider:hover{transform:scale(1.02);box-shadow:0 14px 32px rgba(0,0,0,.12)}
+.slides{display:flex;transition:transform .45s ease;will-change:transform}
+.slide{flex:0 0 100%;aspect-ratio:var(--ratio);overflow:hidden}
+.slide img{width:100%;height:100%;object-fit:cover;display:block}
+.slider-link{display:block;text-decoration:none;color:inherit;border-radius:12px;overflow:hidden}
+
+/* Weather */
+.weather{
+  position:absolute; right:0; top:-10px;
+  transform: translateY(-100%);
+  background:#fff; border-radius:12px; padding:8px 10px; box-shadow:var(--shadow-1);
+  display:inline-flex; align-items:center; gap:10px;
+}
+.weather .w-row{display:flex;gap:10px;align-items:center}
+.weather .w-temp{font-size:22px;font-weight:800}
+.weather .w-meta{font-size:12px;opacity:.8}
+
+/* Modal (общие) */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+.modal.show{display:flex}
+.modal__dialog{height: 120%; background:#fff;border-radius:16px;max-width:860px;width:min(92vw,860px);padding:18px;box-shadow:var(--shadow-1);position:relative}
+.modal__close{position:absolute;right:12px;top:6px;border:0;background:none;font-size:28px;cursor:pointer}
+
+/* Слайдер в модалках — крупные фото, без обрезки */
+.modal__slider{ position:relative;overflow:hidden;border-radius:12px;background:#f7f7f7}
+.modal__slides{display:flex;transition:transform .3s ease;height:100%}
+.modal__slide{flex:0 0 100%;display:flex;align-items:center;justify-content:center}
+.modal__slide img{max-width:90vw;max-height: calc(100vh - 100px);width:auto;height:auto;object-fit:contain;border-radius:8px}
+@media (max-width:900px){.modal__slide img{max-height:72vh}}
+
+.modal__prev,
+.modal__next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;       /* убрали белый круг */
+  box-shadow: none;       /* убрали тень */
+  width: auto;            /* убрали фикс. ширину */
+  height: auto;           /* убрали фикс. высоту */
+  font-size: 48px;        /* сделаем стрелку крупнее */
+  line-height: 1;
+  color: white !important;           /* цвет стрелки */
+  cursor: pointer;
+  z-index: 2;
+}
+.modal__prev { left: 15px; }
+.modal__next { right: 15px; }
+
+/* Детальные сетки */
+.room-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:24px}
+.room-gallery img{width:100%;height:200px;object-fit:cover;border-radius:8px;cursor:pointer;transition:transform .2s ease}
+.room-gallery img:hover{transform:scale(1.03)}
+/* === Lightbox: кнопки как в деталке (стрелки и крестик) === */
+.lightbox { /* базовый стиль уже есть у тебя — оставляем */
+  /* ничего не меняем, только убеждаемся, что поверх всего */
+  z-index: 999;
+}
+.lightbox img { /* базовый стиль у тебя есть; оставляем как есть */ }
+
+.lightbox button{
+  position: absolute;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: .5rem;
+  line-height: 1;
+}
+
+.lightbox-close{ top: 10px; right: 20px; font-size: 2.5rem; }
+.lightbox-prev{ left: 20px; }
+.lightbox-next{ right: 20px; }
+
+
+/* Услуги: карточки кликабельные, с превью */
+.service-card{
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+  display: grid;
+  gap: 10px;
+}
+.service-card:hover{
   transform: scale(1.02);
   box-shadow: 0 14px 32px rgba(0,0,0,.12);
 }
-.slides{
-  display: flex;
-  transition: transform .45s ease;
-  will-change: transform;
-}
-.slide{
-  flex: 0 0 100%;
-  aspect-ratio: var(--ratio);
+.service-thumb{
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: var(--shadow-1);
+  background: #f6f1e6;
 }
-.slide img{
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
+.service-thumb img{
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
 }
 
-/* ссылка-обёртка вокруг слайдера */
-.slider-link{
-  display:block; text-decoration:none; color:inherit;
-  border-radius:12px; overflow:hidden; /* чтобы радиус сохранялся */
+/* --- FIX: модалка и слайдер влезают в экран, фото целиком --- */
+.modal__dialog{
+  /* не тянем диалог выше экрана */
+  height:auto;                /* сбросить прежнее height:120% */
+  max-height:calc(100vh - 64px);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;            /* ничего не вылезает за края */
 }
+
+/* слайдер занимает остаток места внутри диалога */
+.modal__slider{
+  position:relative;
+  flex:1 1 auto;
+  min-height:220px;
+  max-height:100%;
+  overflow:hidden;
+  border-radius:12px;
+  background:#f7f7f7;
+}
+@media (max-width:640px){
+  .modal__slider{ min-height:160px; }
+}
+
+/* трек и слайды растягиваются по высоте слайдера */
+.modal__slides{ display:flex; height:100%; transition:transform .3s ease; }
+.modal__slide{ flex:0 0 100%; height:100%; display:flex; align-items:center; justify-content:center; }
+
+/* картинка ВСЕГДА целиком в видимой области */
+.modal__slide img{
+  max-width:100% !important;
+  max-height:100% !important;
+  width:auto; height:auto;
+  object-fit:contain !important;   /* важное: не cover */
+  border-radius:8px;
+}
+
+/* стрелки без белого круга (как просил) */
+.modal__prev,.modal__next{
+  position:absolute; top:50%; transform:translateY(-50%);
+  border:none; background:none; box-shadow:none;
+  width:auto; height:auto; font-size:48px; line-height:1;
+  color:#666; cursor:pointer; z-index:2;
+}
+.modal__prev{ left:15px; } .modal__next{ right:15px; }

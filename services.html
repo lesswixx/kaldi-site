@@ -6,10 +6,11 @@
   <title>Услуги — Калды</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png">
 </head>
 <body>
   <div class="container">
-    
+
 <header class="header">
   <a class="brand" href="index.html">
     <img src="assets/logo.png" alt="Калды — логотип">
@@ -19,24 +20,202 @@
     <a href="rooms.html">Домики</a>
     <a href="services.html">Услуги</a>
     <a href="gallery.html">Галерея</a>
-    <a href="about.html">О нас</a>
+    <a href="index.html#about">О нас</a>
     <a href="contacts.html">Контакты</a>
     <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
   </nav>
 </header>
 
-    
 <section class="section grid-3">
-  <article class="card"><h3>Баня / сауна</h3><p>Ароматная парилка, веники по записи, комната отдыха.</p><p><strong>от 1 500 ₽ / час</strong></p></article>
-  <article class="card"><h3>Рыбалка</h3><p>Прокат снастей, удобные мостки, ранний выход на воду.</p></article>
-  <article class="card"><h3>Аренда инвентаря</h3><p>Лодки, сапы, велосипеды, мячи и ракетки.</p></article>
-  <article class="card"><h3>Питание</h3><p>Кафе с домашним меню, завтраки, обеды, ужины.</p></article>
-  <article class="card"><h3>Детская зона</h3><p>Песочницы, батут, безопасная зона на пляже.</p></article>
-  <article class="card"><h3>Мангал и террасы</h3><p>Каждый домик имеет собственную оборудованную зону.</p></article>
+  <!-- Баня -->
+  <article class="card service-card" data-service-open="svc-banya" aria-label="Подробнее о бане/сауне">
+    <div class="service-thumb">
+      <img src="assets/services/banya-1.jpg" alt="Баня / сауна — превью">
+    </div>
+    <h3>Баня / сауна</h3>
+    <p>Ароматная парилка, веники по записи, комната отдыха.</p>
+    <p><strong>от 1 500 ₽ / час</strong></p>
+  </article>
+
+  <!-- Рыбалка -->
+  <article class="card service-card" data-service-open="svc-fishing" aria-label="Подробнее о рыбалке">
+    <div class="service-thumb">
+      <img src="assets/services/fishing-1.jpg" alt="Рыбалка — превью">
+    </div>
+    <h3>Рыбалка</h3>
+    <p>Прокат снастей, удобные мостки, ранний выход на воду.</p>
+  </article>
+
+  <!-- Аренда инвентаря -->
+  <article class="card service-card" data-service-open="svc-rentals" aria-label="Подробнее об аренде инвентаря">
+    <div class="service-thumb">
+      <img src="assets/services/rentals-1.jpg" alt="Аренда инвентаря — превью">
+    </div>
+    <h3>Аренда инвентаря</h3>
+    <p>Лодки, сапы, велосипеды, мячи и ракетки.</p>
+  </article>
+
+  <!-- Питание -->
+  <article class="card service-card" data-service-open="svc-food" aria-label="Подробнее о питании">
+    <div class="service-thumb">
+      <img src="assets/services/food-1.jpg" alt="Питание — превью">
+    </div>
+    <h3>Питание</h3>
+    <p>Кафе с домашним меню, завтраки, обеды, ужины.</p>
+  </article>
+
+  <!-- Детская зона -->
+  <article class="card service-card" data-service-open="svc-kids" aria-label="Подробнее о детской зоне">
+    <div class="service-thumb">
+      <img src="assets/services/kids-1.jpg" alt="Детская зона — превью">
+    </div>
+    <h3>Детская зона</h3>
+    <p>Песочницы, батут, безопасная зона на пляже.</p>
+  </article>
+
+  <!-- Мангал и террасы -->
+  <article class="card service-card" data-service-open="svc-bbq" aria-label="Подробнее о мангале и террасах">
+    <div class="service-thumb">
+      <img src="assets/services/bbq-1.jpg" alt="Мангал и террасы — превью">
+    </div>
+    <h3>Мангал и террасы</h3>
+    <p>Каждый домик имеет собственную оборудованную зону.</p>
+  </article>
 </section>
 
   </div>
-  
+
+<!-- ===== Модальные окна слайдерами (картинки не обрезаются) ===== -->
+
+<!-- Баня -->
+<div class="modal" id="svc-banya" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Баня / сауна</h3>
+    <p>Ароматная русская парилка рядом с озером. Веники по записи, есть комната отдыха.</p>
+    <ul>
+      <li>Вместимость: до 6 гостей</li>
+      <li>Стоимость: от 1 500 ₽ / час</li>
+      <li>Дополнительно: веники, полотенца — по запросу</li>
+    </ul>
+
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/services/banya-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/banya-2.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/banya-3.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/banya-4.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev" aria-label="Назад">‹</button>
+      <button class="modal__next" aria-label="Вперёд">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- Рыбалка -->
+<div class="modal" id="svc-fishing" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Рыбалка</h3>
+    <p>Удобные мостки, ранний выход на воду. Прокат снастей и живая наживка в сезон.</p>
+    <ul>
+      <li>Прокат: удочки, спиннинги, лодка</li>
+      <li>Режим: восход–закат</li>
+    </ul>
+
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/services/fishing-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/fishing-2.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/fishing-3.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/fishing-4.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev" aria-label="Назад">‹</button>
+      <button class="modal__next" aria-label="Вперёд">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- Аренда -->
+<div class="modal" id="svc-rentals" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Аренда инвентаря</h3>
+    <p>Сапы, лодки, велосипеды, ракетки и мячи. Для гостей базы — со скидкой.</p>
+
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/services/rentals-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/rentals-2.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/rentals-3.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/rentals-4.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev" aria-label="Назад">‹</button>
+      <button class="modal__next" aria-label="Вперёд">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- Питание -->
+<div class="modal" id="svc-food" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Питание</h3>
+    <p>Кафе с домашним меню. Завтраки, обеды, ужины, сезонные блюда.</p>
+
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/services/food-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/food-2.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/food-3.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/food-4.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev" aria-label="Назад">‹</button>
+      <button class="modal__next" aria-label="Вперёд">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- Детская зона -->
+<div class="modal" id="svc-kids" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Детская зона</h3>
+    <p>Песочницы, батут, мягкое покрытие, теневые навесы. На пляже — мелкий вход.</p>
+
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/services/kids-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/kids-2.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/kids-3.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/kids-4.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev" aria-label="Назад">‹</button>
+      <button class="modal__next" aria-label="Вперёд">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- Мангал -->
+<div class="modal" id="svc-bbq" aria-hidden="true">
+  <div class="modal__dialog">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">×</button>
+    <h3>Мангал и террасы</h3>
+    <p>У каждого домика — своя зона: мангал, стол, лавочки. Уголь и дрова на ресепшене.</p>
+
+    <div class="modal__slider" data-slider>
+      <div class="modal__slides">
+        <div class="modal__slide"><img src="assets/services/bbq-1.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/bbq-2.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/bbq-3.jpg" alt=""></div>
+        <div class="modal__slide"><img src="assets/services/bbq-4.jpg" alt=""></div>
+      </div>
+      <button class="modal__prev" aria-label="Назад">‹</button>
+      <button class="modal__next" aria-label="Вперёд">›</button>
+    </div>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="container">
     <div class="row">
@@ -45,7 +224,53 @@
     </div>
   </div>
 </footer>
-<script src="scripts/main.js"></script>
 
+<script src="scripts/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  // Открытие модалки по клику на карточку услуги
+  document.querySelectorAll('.service-card[data-service-open]').forEach(card => {
+    card.addEventListener('click', () => {
+      const modalId = card.getAttribute('data-service-open');
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('show');
+        modal.setAttribute('aria-hidden', 'false');
+        initModalSlider(modal);
+      }
+    });
+  });
+
+  // Закрытие модалки
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', e => {
+      if (e.target === modal || e.target.hasAttribute('data-modal-close')) {
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+  });
+
+  function initModalSlider(modal) {
+    const slides = modal.querySelector('.modal__slides');
+    const slideCount = modal.querySelectorAll('.modal__slide').length;
+    let index = 0;
+
+    const btnPrev = modal.querySelector('.modal__prev');
+    const btnNext = modal.querySelector('.modal__next');
+
+    function show(i) {
+      index = (i + slideCount) % slideCount;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    if (btnPrev) btnPrev.onclick = () => show(index - 1);
+    if (btnNext) btnNext.onclick = () => show(index + 1);
+
+    show(0);
+  }
+});
+
+</script>
 </body>
 </html>
