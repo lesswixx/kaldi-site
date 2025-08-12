@@ -264,3 +264,25 @@ form .actions{margin:10px}
   color:#666; cursor:pointer; z-index:2;
 }
 .modal__prev{ left:15px; } .modal__next{ right:15px; }
+.contact-phone {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.contact-phone {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.contact-phone {
+  font-size: 1.5rem;                 /* крупнее, чем сейчас */
+  font-weight: 900;                /* жирный */
+  background: linear-gradient(90deg, #ff9800, #ffcc33);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;   /* градиент внутри цифр */
+  letter-spacing: 1px;
+}
+
+.contact-phone:hover {
+  filter: brightness(1.1);
+}
