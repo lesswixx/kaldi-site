@@ -15,11 +15,17 @@
     <img src="assets/logo.png" alt="Калды — логотип">
     <div class="title"><span class="ru">Калды</span><span class="subtitle">База отдыха</span></div>
   </a>
+
+  <!-- КНОПКА-БУРГЕР -->
+  <button class="burger" aria-label="Меню" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
   <nav class="nav">
     <a href="rooms.html">Домики</a>
     <a href="services.html">Услуги</a>
     <a href="gallery.html">Галерея</a>
-    <a href="about.html">О нас</a>
+    <a href="index.html#about">О нас</a>
     <a href="contacts.html">Контакты</a>
     <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
   </nav>
@@ -46,7 +52,25 @@
     </div>
   </div>
 </footer>
-<script src="scripts/main.js"></script>
+<!-- <script src="scripts/main.js"></script> -->
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var burger = document.querySelector('.burger');
+    var mask   = document.querySelector('.nav-mask');
+    var nav    = document.querySelector('.nav');
+    if(!burger || !nav) return;
 
+    function open(){ document.body.classList.add('nav-open');  burger.setAttribute('aria-expanded','true'); }
+    function close(){ document.body.classList.remove('nav-open'); burger.setAttribute('aria-expanded','false'); }
+
+    burger.addEventListener('click', function(){
+      document.body.classList.contains('nav-open') ? close() : open();
+    });
+    mask && mask.addEventListener('click', close);
+    nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+    window.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth>900) close(); });
+  });
+</script>
 </body>
 </html>

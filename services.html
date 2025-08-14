@@ -16,6 +16,12 @@
     <img src="assets/logo.png" alt="Калды — логотип">
     <div class="title"><span class="ru">Калды</span><span class="subtitle">База отдыха</span></div>
   </a>
+
+  <!-- КНОПКА-БУРГЕР -->
+  <button class="burger" aria-label="Меню" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
   <nav class="nav">
     <a href="rooms.html">Домики</a>
     <a href="services.html">Услуги</a>
@@ -227,50 +233,137 @@
 
 <script src="scripts/main.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-  // Открытие модалки по клику на карточку услуги
-  document.querySelectorAll('.service-card[data-service-open]').forEach(card => {
-    card.addEventListener('click', () => {
-      const modalId = card.getAttribute('data-service-open');
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.add('show');
-        modal.setAttribute('aria-hidden', 'false');
-        initModalSlider(modal);
-      }
-    });
-  });
+  function closeMobileMenu(){
+  document.body.classList.remove('nav-open');
+  const burger = document.querySelector('.burger');
+  if(burger) burger.setAttribute('aria-expanded','false');
+}
 
-  // Закрытие модалки
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', e => {
-      if (e.target === modal || e.target.hasAttribute('data-modal-close')) {
-        modal.classList.remove('show');
-        modal.setAttribute('aria-hidden', 'true');
-      }
-    });
-  });
+// Оборачиваем openModal и лайтбокс
+const originalOpenModal = window.openModal;
+window.openModal = function(id, opener){
+  closeMobileMenu();
+  document.body.classList.add('modal-open');
+  if(originalOpenModal) originalOpenModal(id, opener);
+};
 
-  function initModalSlider(modal) {
-    const slides = modal.querySelector('.modal__slides');
-    const slideCount = modal.querySelectorAll('.modal__slide').length;
-    let index = 0;
+function openLightbox(){
+  closeMobileMenu();
+  document.body.classList.add('modal-open');
+  // сюда твоя логика открытия лайтбокса
+}
 
-    const btnPrev = modal.querySelector('.modal__prev');
-    const btnNext = modal.querySelector('.modal__next');
+// При закрытии модалки/лайтбокса — снимаем modal-open
+document.addEventListener('click', e=>{
+  if(e.target.hasAttribute?.('data-modal-close') || e.target.classList?.contains('modal')){
+    document.body.classList.remove('modal-open');
+  }
+});
 
-    function show(i) {
-      index = (i + slideCount) % slideCount;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    if (btnPrev) btnPrev.onclick = () => show(index - 1);
-    if (btnNext) btnNext.onclick = () => show(index + 1);
-
-    show(0);
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    document.body.classList.remove('modal-open');
   }
 });
 
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  function closeMobileMenu(){
+    document.body.classList.remove('nav-open');
+    const burger = document.querySelector('.burger');
+    if (burger) burger.setAttribute('aria-expanded','false');
+  }
+
+  document.querySelectorAll('.service-card[data-service-open]').forEach(card => {
+    card.addEventListener('click', () => {
+      const modalId = card.getAttribute('data-service-open');
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+
+      closeMobileMenu();
+      document.body.classList.add('modal-open');
+
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      initModalSlider(modal);
+      (modal.querySelector('.modal__next') || modal.querySelector('.modal__close') || modal).focus();
+    });
+  });
+
+  document.querySelectorAll('.modal').forEach(modal => {
+    const close = () => {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open'); 
+    };
+
+    modal.addEventListener('click', e => {
+      if (e.target === modal || e.target.hasAttribute('data-modal-close')) close();
+    });
+
+    modal.addEventListener('keydown', e => {
+      if (e.key === 'Escape') close();
+    });
+  });
+
+  function initModalSlider(modal){
+    if (modal.__sliderInited) return;
+    modal.__sliderInited = true;
+
+    const track  = modal.querySelector('.modal__slides');
+    const slides = modal.querySelectorAll('.modal__slide');
+    const prev   = modal.querySelector('.modal__prev');
+    const next   = modal.querySelector('.modal__next');
+    if (!track || !slides.length) return;
+
+    let index = 0;
+
+    function show(i){
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index*100}%)`;
+    }
+
+    prev && prev.addEventListener('click', e => { e.stopPropagation(); show(index-1); });
+    next && next.addEventListener('click', e => { e.stopPropagation(); show(index+1); });
+
+    const slider = modal.querySelector('.modal__slider');
+    slider && slider.addEventListener('click', e => {
+      if (e.target.closest('.modal__prev, .modal__next')) return;
+      const r = slider.getBoundingClientRect();
+      (e.clientX - r.left < r.width/2) ? show(index-1) : show(index+1);
+    });
+
+    let startX = 0, startY = 0, tracking = false, axis = null;
+    const THRESH = 40; 
+
+    function start(x, y){ startX = x; startY = y; tracking = true; axis = null; }
+    function move(x, y, e){
+      if (!tracking) return;
+      if (axis == null) axis = Math.abs(x-startX) > Math.abs(y-startY) ? 'x' : 'y';
+      if (axis === 'x') e.preventDefault(); 
+    }
+    function end(x){
+      if (!tracking) return;
+      const dx = x - startX;
+      if (Math.abs(dx) > THRESH) (dx < 0 ? show(index+1) : show(index-1));
+      tracking = false; axis = null;
+    }
+
+    slider && slider.addEventListener('touchstart', e => start(e.touches[0].clientX, e.touches[0].clientY), {passive:true});
+    slider && slider.addEventListener('touchmove',  e => move(e.touches[0].clientX, e.touches[0].clientY, e), {passive:false});
+    slider && slider.addEventListener('touchend',   e => end(e.changedTouches[0].clientX), {passive:true});
+
+    slider && slider.addEventListener('pointerdown', e => start(e.clientX, e.clientY));
+    slider && slider.addEventListener('pointermove',  e => move(e.clientX, e.clientY, e));
+    slider && slider.addEventListener('pointerup',    e => end(e.clientX));
+
+    show(0);
+  }
+});
+</script>
+
+
+
 </body>
 </html>

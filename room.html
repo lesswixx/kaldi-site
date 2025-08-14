@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="page-title">Номер — Калды</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body>
+  <div class="container">
+<header class="header">
+  <a class="brand" href="index.html">
+    <img src="assets/logo.png" alt="Калды — логотип">
+    <div class="title"><span class="ru">Калды</span><span class="subtitle">База отдыха</span></div>
+  </a>
+
+  <!-- КНОПКА-БУРГЕР -->
+  <button class="burger" aria-label="Меню" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="nav">
+    <a href="rooms.html">Домики</a>
+    <a href="services.html">Услуги</a>
+    <a href="gallery.html">Галерея</a>
+    <a href="index.html#about">О нас</a>
+    <a href="contacts.html">Контакты</a>
+    <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+  </nav>
+</header>
+
+    <section id="room-details" class="section" data-rooms-src="assets/data/rooms.json">
+  <h1 id="room-title">Загрузка…</h1>
+  <div id="room-gallery" class="room-gallery"></div>
+
+  <h2>Описание</h2>
+  <p id="room-description">Подождите, подгружаем описание…</p>
+
+  <h2>Характеристики</h2>
+  <ul id="room-features"></ul>
+
+  <p id="room-price" style="font-weight:700"></p>
+  <a class="btn" href="#" onclick="bookingStub(event)">Забронировать</a>
+</section>
+
+  </div>
+
+  <!-- Единый лайтбокс (тот же, что на странице галереи) -->
+  <div id="lightbox" class="lightbox" style="display:none;">
+    <button class="lightbox-close" aria-label="Закрыть">×</button>
+    <button class="lightbox-prev" aria-label="Предыдущее фото">‹</button>
+    <img src="" alt="" class="lightbox-img">
+    <button class="lightbox-next" aria-label="Следующее фото">›</button>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div>© 2025 «Калды». База отдыха у озера.</div>
+        <div class="badge-pill">Тёплый отдых у воды</div>
+      </div>
+    </div>
+  </footer>
+<script>
+  // мини-подстраховка: работает даже без initMobileMenu()
+  document.addEventListener('DOMContentLoaded', function(){
+    var burger = document.querySelector('.burger');
+    var mask   = document.querySelector('.nav-mask');
+    var nav    = document.querySelector('.nav');
+    if(!burger || !nav) return;
+
+    function open(){ document.body.classList.add('nav-open');  burger.setAttribute('aria-expanded','true'); }
+    function close(){ document.body.classList.remove('nav-open'); burger.setAttribute('aria-expanded','false'); }
+
+    burger.addEventListener('click', function(){
+      document.body.classList.contains('nav-open') ? close() : open();
+    });
+    mask && mask.addEventListener('click', close);
+    nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+    window.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
+    window.addEventListener('resize', function(){ if(window.innerWidth>900) close(); });
+  });
+</script>
+ <script>
+(function(){
+  // Принудительно запускаем загрузку деталей после полной загрузки
+  window.addEventListener('load', () => {
+    const wrap = document.getElementById('room-details');
+    const src  = wrap?.dataset.roomsSrc || 'assets/data/rooms.json';
+
+    // Если в main.js уже есть initRoomDetailsFromJSON — используем её
+    if (typeof initRoomDetailsFromJSON === 'function') {
+      console.log('[room] using initRoomDetailsFromJSON, src=', src);
+      initRoomDetailsFromJSON();
+      // страховка: если через 800мс заголовок ещё "Загрузка…", делаем прямую подстановку
+      setTimeout(()=> {
+        if (document.getElementById('room-title')?.textContent?.trim() === 'Загрузка…') {
+          console.warn('[room] fallback load');
+          directLoadRoom(src);
+        }
+      }, 800);
+    } else {
+      // если по какой-то причине функции нет — грузим напрямую
+      console.log('[room] direct load, src=', src);
+      directLoadRoom(src);
+    }
+  });
+
+  function qp(name){
+    try { return new URL(location.href).searchParams.get(name); } catch { return null; }
+  }
+  function fmt(n){ return Number(n||0).toLocaleString('ru-RU'); }
+  function esc(s){ return String(s||'').replace(/[&<>"'`=\/]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;','`':'&#x60;','=':'&#x3D;'}[c]||c)); }
+
+  async function directLoadRoom(src){
+    const wrap = document.getElementById('room-details');
+    if (!wrap) return;
+
+    try {
+      const res = await fetch(src);
+      const data = await res.json();
+      const arr = data.rooms || data || [];
+      if (!arr.length) throw new Error('rooms array empty');
+
+      const wanted = qp('room') || qp('slug') || qp('id');
+      const room = arr.find(r => String(r.slug) === String(wanted)) || arr[0];
+
+      // title
+      document.title = `${room.title} — Калды`;
+      const titleEl = document.getElementById('room-title');
+      if (titleEl) titleEl.textContent = room.title || 'Номер';
+
+      // gallery
+      const gal = document.getElementById('room-gallery');
+      const galleryList = Array.isArray(room.gallery) ? room.gallery : [];
+      gal.innerHTML = galleryList.map(src => `<img loading="lazy" src="${esc(src)}" alt="${esc(room.title)}">`).join('');
+
+      // desc
+      const desc = document.getElementById('room-description');
+      if (desc) desc.textContent = room.description || '';
+
+      // features
+      const ul = document.getElementById('room-features');
+      ul.innerHTML = (room.features || []).map(f=>`<li>${esc(f)}</li>`).join('');
+
+      // price
+      const price = document.getElementById('room-price');
+      if (price) price.textContent = `Цена: от ${fmt(room.priceFrom)} ₽ / ночь`;
+
+      // включаем лайтбокс, если есть
+      if (typeof initLightboxFor === 'function') {
+        initLightboxFor('.room-gallery img');
+      } else {
+        // простой лайтбокс по месту
+        ensureInlineLightbox();
+        initInlineLightbox('.room-gallery img');
+      }
+    } catch (e) {
+      console.error('[room] load error:', e);
+      wrap.innerHTML = '<div class="card">Не удалось загрузить данные номера.</div>';
+    }
+  }
+
+  // Мини-лайтбокс (если твоей функции нет)
+  function ensureInlineLightbox(){
+    if (document.getElementById('lightbox')) return;
+    const div = document.createElement('div');
+    div.id = 'lightbox';
+    div.className = 'lightbox';
+    div.style.display = 'none';
+    div.innerHTML = `
+      <button class="lightbox-close" aria-label="Закрыть">×</button>
+      <button class="lightbox-prev" aria-label="Предыдущее фото">‹</button>
+      <img src="" alt="" class="lightbox-img">
+      <button class="lightbox-next" aria-label="Следующее фото">›</button>
+    `;
+    document.body.appendChild(div);
+  }
+  function initInlineLightbox(selector){
+    const imgs = document.querySelectorAll(selector);
+    if (!imgs.length) return;
+    const lb = document.getElementById('lightbox');
+    const big = lb.querySelector('.lightbox-img');
+    const btnC = lb.querySelector('.lightbox-close');
+    const btnP = lb.querySelector('.lightbox-prev');
+    const btnN = lb.querySelector('.lightbox-next');
+    let i = 0; const arr = Array.from(imgs);
+    function srcOf(el){ return el.getAttribute('data-full') || el.getAttribute('data-src') || el.src || ''; }
+    function show(k){ i=(k+arr.length)%arr.length; big.src=srcOf(arr[i]); lb.style.display='flex'; }
+    function hide(){ lb.style.display='none'; }
+    arr.forEach((im, idx)=> im.addEventListener('click', ()=>show(idx)));
+    btnC.addEventListener('click', hide);
+    btnP.addEventListener('click', ()=>show(i-1));
+    btnN.addEventListener('click', ()=>show(i+1));
+    lb.addEventListener('click', e=>{ if(e.target===lb) hide(); });
+    document.addEventListener('keydown', e=>{
+      if(lb.style.display==='flex'){
+        if(e.key==='Escape') hide();
+        if(e.key==='ArrowLeft') show(i-1);
+        if(e.key==='ArrowRight') show(i+1);
+      }
+    });
+  }
+})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  initLightboxFor('.gallery img');
+});
+
+function initLightboxFor(selector){
+  const images = Array.from(document.querySelectorAll(selector));
+  if(!images.length) return;
+
+  const lb   = document.getElementById('lightbox');
+  const img  = lb.querySelector('.lightbox-img');
+  const btnX = lb.querySelector('.lightbox-close');
+  const prev = lb.querySelector('.lightbox-prev');
+  const next = lb.querySelector('.lightbox-next');
+
+  let index = 0;
+
+  function closeMobileMenu(){
+    if (document.body.classList.contains('nav-open')) {
+      document.body.classList.remove('nav-open');
+      const burger = document.querySelector('.burger');
+      if (burger) burger.setAttribute('aria-expanded','false');
+    }
+  }
+
+  function show(i){
+    index = (i + images.length) % images.length;
+    const el = images[index];
+    img.src = el.getAttribute('data-full') || el.getAttribute('data-src') || el.src;
+    closeMobileMenu();
+    document.body.classList.add('modal-open');       // блокируем клики по шапке/меню в CSS
+    lb.style.display = 'flex';
+  }
+  function hide(){
+    lb.style.display = 'none';
+    document.body.classList.remove('modal-open');
+  }
+
+  images.forEach((el, i) => el.addEventListener('click', ()=>show(i)));
+  btnX .addEventListener('click', hide);
+  prev.addEventListener('click', ()=> show(index - 1));
+  next.addEventListener('click', ()=> show(index + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) hide(); });
+
+  document.addEventListener('keydown', e => {
+    if (lb.style.display === 'flex') {
+      if (e.key === 'Escape') hide();
+      if (e.key === 'ArrowLeft')  show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    }
+  });
+
+  /* === СВАЙП В МОДАЛКЕ (тач/указатель) === */
+  let startX = 0, startY = 0, swiping = false, locked = null;
+  const THRESH = 40; // пикселей
+
+  function onStart(x, y){
+    startX = x; startY = y;
+    swiping = true; locked = null;
+  }
+  function onMove(x, y, e){
+    if(!swiping) return;
+    if (locked == null) {
+      // Определяем направление — блокируем вертикальную прокрутку при горизонтальном свайпе
+      locked = Math.abs(x - startX) > Math.abs(y - startY) ? 'x' : 'y';
+    }
+    if (locked === 'x') e.preventDefault();
+  }
+  function onEnd(x){
+    if(!swiping) return;
+    const dx = x - startX;
+    if (Math.abs(dx) > THRESH) {
+      dx < 0 ? show(index + 1) : show(index - 1);
+    }
+    swiping = false; locked = null;
+  }
+
+  // Touch
+  lb.addEventListener('touchstart', e => onStart(e.touches[0].clientX, e.touches[0].clientY), {passive:true});
+  lb.addEventListener('touchmove',  e => onMove(e.touches[0].clientX, e.touches[0].clientY, e), {passive:false});
+  lb.addEventListener('touchend',   e => onEnd(e.changedTouches[0].clientX), {passive:true});
+
+  // Pointer (мышь/стилус)
+  lb.addEventListener('pointerdown', e => onStart(e.clientX, e.clientY));
+  lb.addEventListener('pointermove',  e => onMove(e.clientX, e.clientY, e));
+  lb.addEventListener('pointerup',    e => onEnd(e.clientX));
+}
+</script>
+
+</body>
+</html>

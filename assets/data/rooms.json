@@ -1,22 +1,58 @@
 {
   "rooms": [
     {
+      "slug": "standard",
       "title": "Стандарт у озера",
-      "price": 3500,
-      "url": "room-standard.html",
-      "meta": "2–3 гостя · Терраса · Кондиционер",
-      "photos": [
+      "subtitle": "2–3 гостя · Терраса · Кондиционер",
+      "priceFrom": 3500,
+      "area": 28,
+      "capacity": "2–3",
+      "features": [
+        "Кухня с плитой и холодильником",
+        "Терраса с мебелью",
+        "Кондиционер, Wi-Fi",
+        "Парковка рядом"
+      ],
+      "description": "Уютный домик прямо у кромки озера, отлично подходит для пары или небольшой семьи. В домике есть всё необходимое для комфортного отдыха: кондиционер, мини-кухня, просторная терраса и собственный выход к пляжу.",
+      "gallery": [
         "assets/rooms/standard-1.jpg",
         "assets/rooms/standard-2.jpg",
         "assets/rooms/standard-3.jpg"
       ]
     },
     {
-      "title": "Стандарт у озера",
-      "price": 3500,
-      "url": "room-standard.html",
-      "meta": "2–3 гостя · Терраса · Кондиционер",
-      "photos": [
+      "slug": "cottage",
+      "title": "Семейный коттедж",
+      "subtitle": "до 6 гостей · Кухня · Мангал",
+      "priceFrom": 7900,
+      "area": 64,
+      "capacity": "до 6",
+      "features": [
+        "Полноценная кухня",
+        "Терраса и мангал",
+        "Две спальни, гостиная",
+        "Парковка у дома"
+      ],
+      "gallery": [
+        "assets/rooms/standard-1.jpg",
+        "assets/rooms/standard-2.jpg",
+        "assets/rooms/standard-3.jpg"
+      ]
+    },
+    {
+      "slug": "forest",
+      "title": "Домик у леса",
+      "subtitle": "2–4 гостя · Тихая зона · Парковка",
+      "priceFrom": 4500,
+      "area": 32,
+      "capacity": "2–4",
+      "features": [
+        "Тихая зона рядом с соснами",
+        "Мини-кухня",
+        "Терраса",
+        "Парковка рядом"
+      ],
+      "gallery": [
         "assets/rooms/standard-1.jpg",
         "assets/rooms/standard-2.jpg",
         "assets/rooms/standard-3.jpg"
