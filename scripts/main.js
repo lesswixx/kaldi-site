@@ -64,27 +64,61 @@
     return true;
   }
 
-  // SVG-иконка бургера, которая превращается в крестик
-  function ensureBurgerSVG(burger){
-    if (!burger) return;
-    if (burger.querySelector('svg.burger-svg')) return;
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('class','burger-svg');
-    svg.setAttribute('viewBox','0 0 24 24');
-    svg.setAttribute('aria-hidden','true');
-    const mk = (cls, y) => {
-      const l = document.createElementNS(svgNS, 'line');
-      l.setAttribute('class', cls);
-      l.setAttribute('x1','4'); l.setAttribute('x2','20');
-      l.setAttribute('y1', String(y)); l.setAttribute('y2', String(y));
-      return l;
-    };
-    svg.appendChild(mk('l1', 7));
-    svg.appendChild(mk('l2', 12));
-    svg.appendChild(mk('l3', 17));
-    burger.appendChild(svg);
+  // SVG-иконка бургера (два слоя: burger & close). Меняем их opacity — центр идеальный
+function ensureBurgerSVG(burger){
+  if (!burger) return;
+  if (burger.querySelector('svg.burger-svg')) return;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('class','burger-svg');
+  svg.setAttribute('viewBox','0 0 24 24');
+  svg.setAttribute('width','24');
+  svg.setAttribute('height','24');
+  svg.setAttribute('aria-hidden','true');
+
+  const makeLine = (x1,y1,x2,y2) => {
+    const l = document.createElementNS(svgNS,'line');
+    l.setAttribute('x1', x1); l.setAttribute('y1', y1);
+    l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+    return l;
+  };
+
+  // Слой “бургер”: три ровные горизонтальные линии
+  const gBurger = document.createElementNS(svgNS,'g');
+  gBurger.setAttribute('class','icon-burger');
+  gBurger.appendChild(makeLine(4,6,20,6));
+  gBurger.appendChild(makeLine(4,12,20,12));
+  gBurger.appendChild(makeLine(4,18,20,18));
+
+  // Слой “крестик”: две диагонали, сходятся точно в центре (12,12)
+  const gClose = document.createElementNS(svgNS,'g');
+  gClose.setAttribute('class','icon-close');
+  gClose.appendChild(makeLine(6,6,18,18));
+  gClose.appendChild(makeLine(18,6,6,18));
+
+  svg.appendChild(gBurger);
+  svg.appendChild(gClose);
+  burger.appendChild(svg);
+}
+// Прячем бургер на десктопе; показываем на моб/тач (включая in-app браузеры)
+function syncBurgerVisibility(){
+  const burger = document.querySelector('.burger');
+  if (!burger) return;
+
+  const mqMobile = window.matchMedia('(max-width: 900px)').matches;
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  const show = mqMobile || (isTouch && window.innerWidth <= 1024);
+
+  if (show) {
+    if (getComputedStyle(burger).display === 'none') burger.style.display = 'flex';
+  } else {
+    burger.style.display = ''; // пусть CSS прячет по умолчанию
+    document.body.classList.remove('nav-open');
+    burger.setAttribute('aria-expanded','false');
   }
+}
+
 
   // Показываем бургер на тач-устройствах, даже если ширина “десктопная”
   function forceBurgerVisibility(){
@@ -596,7 +630,6 @@
     initAboutAndGalleryModals();
     initRoomsFromJSON();
     initRoomDetailsFromJSON();
-
     forceBurgerVisibility();
     on(window, 'resize', forceBurgerVisibility);
   });
