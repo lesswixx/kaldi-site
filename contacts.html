@@ -76,37 +76,7 @@
   </div>
 </footer>
 
-<!-- <script src="scripts/main.js"></script> -->
-<script>
-  document.addEventListener('DOMContentLoaded', function(){
-    var burger = document.querySelector('.burger');
-    var mask   = document.querySelector('.nav-mask');
-    var nav    = document.querySelector('.nav');
-    if(!burger || !nav) return;
+<script src="scripts/main.js"></script>
 
-    function open(){ document.body.classList.add('nav-open');  burger.setAttribute('aria-expanded','true'); }
-    function close(){ document.body.classList.remove('nav-open'); burger.setAttribute('aria-expanded','false'); }
-
-    burger.addEventListener('click', function(){
-      document.body.classList.contains('nav-open') ? close() : open();
-    });
-    mask && mask.addEventListener('click', close);
-    nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
-    window.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
-    window.addEventListener('resize', function(){ if(window.innerWidth>900) close(); });
-  });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  const currentPage = location.pathname.split('/').pop();
-  document.querySelectorAll('.nav a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === currentPage) link.classList.add('active');
-    if ((currentPage === '' || currentPage === 'index.html') && (href === 'index.html' || href === '#about')) {
-      link.classList.add('active');
-    }
-  });
-});
-</script>
 </body>
 </html>
