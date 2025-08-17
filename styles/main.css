@@ -499,3 +499,10 @@ body.modal-open .burger{ opacity: 0; }   /* можно убрать строку
 }
 body.modal-open .nav{ pointer-events:none; }
 body.modal-open .burger{ opacity:.0; pointer-events:none; }
+
+
+/* === Fallback: в некоторых встроенных браузерах viewport всегда ~980px.
+   Если устройство тачевое — принудительно показываем бургер. === */
+@media (hover: none) and (pointer: coarse) {
+  .burger { display: flex !important; z-index: 3000; }
+}
