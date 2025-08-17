@@ -22,13 +22,35 @@ function bookingStub(e){
    - data-lightbox-src="путь_к_картинке"
    - data-lb-group="имя_группы" (опционально; по умолчанию "default")
 ----------------------------------------------------------- */
-(function initGlobalLightbox(){
-  const lb = document.getElementById('lightbox');
-  if(!lb) return;
-  const img = lb.querySelector('.lb-img');
+(
+function initGlobalLightbox(){
+  // Создаём lightbox, если его нет, или дополняем недостающие элементы.
+  let lb = document.getElementById('lightbox');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.id = 'lightbox';
+    lb.className = 'lightbox';
+    lb.innerHTML = `
+      <button class="lb-close" aria-label="Закрыть">×</button>
+      <button class="lb-prev" aria-label="Предыдущее фото">‹</button>
+      <img class="lb-img" alt="">
+      <button class="lb-next" aria-label="Следующее фото">›</button>
+    `;
+    document.body.appendChild(lb);
+  } else {
+    // Дополним отсутствующие элементы — чтобы не падать на страницах с другим шаблоном.
+    if (!lb.querySelector('.lb-close')) {
+      const b = document.createElement('button'); b.className='lb-close'; b.setAttribute('aria-label','Закрыть'); b.textContent='×'; lb.appendChild(b);
+    }
+    if (!lb.querySelector('.lb-prev'))  { const b=document.createElement('button'); b.className='lb-prev';  b.setAttribute('aria-label','Предыдущее фото'); b.textContent='‹'; lb.appendChild(b); }
+    if (!lb.querySelector('.lb-next'))  { const b=document.createElement('button'); b.className='lb-next';  b.setAttribute('aria-label','Следующее фото');   b.textContent='›'; lb.appendChild(b); }
+    if (!lb.querySelector('.lb-img'))   { const i=document.createElement('img');    i.className='lb-img'; i.alt=''; lb.appendChild(i); }
+  }
+
+  const img     = lb.querySelector('.lb-img');
   const btnPrev = lb.querySelector('.lb-prev');
   const btnNext = lb.querySelector('.lb-next');
-  const btnClose = lb.querySelector('.lb-close');
+  const btnClose= lb.querySelector('.lb-close');
 
   let group = 'default';
   let items = [];
@@ -37,21 +59,23 @@ function bookingStub(e){
   function collect(groupName){
     group = groupName || 'default';
     items = Array.from(document.querySelectorAll(`[data-lightbox-src][data-lb-group="${group}"]`));
-    if(items.length===0){ // fallback: все без группы
+    if (items.length === 0) {
       items = Array.from(document.querySelectorAll('[data-lightbox-src]:not([data-lb-group])'));
       group = 'default';
     }
   }
   function show(i){
-    if(items.length===0) return;
+    if(!items.length || !img) return;
     index = (i + items.length) % items.length;
-    img.src = items[index].getAttribute('data-lightbox-src');
+    const src = items[index].getAttribute('data-lightbox-src');
+    img.src = src;
     lb.classList.add('active');
+    lb.tabIndex = -1;
     lb.focus();
   }
   function close(){ lb.classList.remove('active'); }
 
-  // делегирование кликов по документу
+  // Делегируем клики
   document.addEventListener('click', (e)=>{
     const t = e.target.closest('[data-lightbox-src]');
     if(!t) return;
@@ -61,14 +85,15 @@ function bookingStub(e){
     show(i>=0 ? i : 0);
   });
 
-  btnPrev.addEventListener('click', ()=>show(index-1));
-  btnNext.addEventListener('click', ()=>show(index+1));
-  btnClose.addEventListener('click', close);
+  // Навигация (проверяем элементы на существование)
+  if (btnPrev)  btnPrev.addEventListener('click', ()=>show(index-1));
+  if (btnNext)  btnNext.addEventListener('click', ()=>show(index+1));
+  if (btnClose) btnClose.addEventListener('click', close);
 
-  // клик по фону — закрыть
+  // Клик по фону — закрыть
   lb.addEventListener('click', (e)=>{ if(e.target === lb) close(); });
 
-  // клавиатура
+  // Клавиатура
   document.addEventListener('keydown', (e)=>{
     if(!lb.classList.contains('active')) return;
     if(e.key === 'Escape') close();
@@ -76,18 +101,19 @@ function bookingStub(e){
     if(e.key === 'ArrowRight') show(index+1);
   });
 
-  // свайп
+  // Свайп
   let down=false,x0=0;
   lb.addEventListener('pointerdown', e=>{down=true;x0=e.clientX;});
   const up = e=>{
     if(!down) return;
     const dx=(e.clientX??0)-x0;
-    if(Math.abs(dx)>40) dx<0 ? show(index+1) : show(index-1);
+    if(Math.abs(dx)>40) (dx<0 ? show(index+1) : show(index-1));
     down=false;
   };
   lb.addEventListener('pointerup', up);
   lb.addEventListener('pointercancel', up);
-})();
+}
+)();
 
 /* ===== Слайдер на карточках домиков (без стрелок/точек, автоплей на hover) ===== */
 function initSimpleSliders(){
@@ -557,8 +583,8 @@ function initMobileMenu(){
   const mask = document.querySelector('.nav-mask');
   if (!burger || !nav) return;
 
-  const open  = () => { document.body.classList.add('nav-open');  burger.setAttribute('aria-expanded','true'); if(nav.dataset.inlineMobile==='1'){ nav.style.right='0'; }};
-  const close = () => { document.body.classList.remove('nav-open'); burger.setAttribute('aria-expanded','false'); if(nav.dataset.inlineMobile==='1'){ nav.style.right='-100%'; }};
+  const open  = () => { document.body.classList.add('nav-open');  burger.setAttribute('aria-expanded','true'); };
+  const close = () => { document.body.classList.remove('nav-open'); burger.setAttribute('aria-expanded','false'); };
 
   burger.addEventListener('click', () => {
     document.body.classList.contains('nav-open') ? close() : open();
@@ -582,6 +608,4 @@ document.addEventListener('DOMContentLoaded', ()=>{
   initAboutAndGalleryModals(); 
   initRoomsFromJSON();
   initRoomDetailsFromJSON();
-    forceBurgerVisibility();
-    on(window, "resize", forceBurgerVisibility);
 });
